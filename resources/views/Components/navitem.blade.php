@@ -1,0 +1,1 @@
+<a {{ $attributes }} class="text-xl mr-10 p-2 rounded-xl {{ request()->is($href) ? 'bg-gray-700' : '' }}">{{ $slot }}</a>

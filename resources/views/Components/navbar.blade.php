@@ -1,3 +1,4 @@
 <nav class="bg-gray-800 text-white p-5">
-    <a href="/" class="text-xl mr-10 p-5">Home</a>
+    <x-navitem href="/">Home</x-navitem>
+    <x-navitem href="products">Browse</x-navitem>
 </nav>
