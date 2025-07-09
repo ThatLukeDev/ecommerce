@@ -6,5 +6,9 @@
     </head>
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
+
+        @foreach ($products as $product)
+            <x-productlisting :product=$product></x-productlisting>
+        @endforeach
     </body>
 </html>
