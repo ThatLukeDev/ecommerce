@@ -10,5 +10,7 @@
         @foreach ($products as $product)
             <x-productlisting :product=$product></x-productlisting>
         @endforeach
+
+        <x-paginate>{{ $products->lastPage() }}</x-paginate>
     </body>
 </html>
