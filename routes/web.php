@@ -11,4 +11,5 @@ Route::get('products', [ProductController::class, 'viewProducts'])->name('produc
 Route::get('products/{id}', [ProductController::class, 'viewProduct'])->name('product.page');
 Route::get('basket', [ProductController::class, 'viewBasket'])->name('basket.page');
 
-Route::post('products/{id}', [ProductController::class, 'addProduct'])->name('product.add');
+Route::post('products/{id}', [ProductController::class, 'addProduct'])->name('product.request');
+Route::post('basket', [ProductController::class, 'handleProduct'])->name('basket.request');

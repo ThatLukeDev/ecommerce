@@ -33,4 +33,30 @@ class ProductController extends Controller
 
         return redirect('basket');
     }
+
+    public function handleProduct() {
+        $basket = session("basket", []);
+
+        if (request('add') != null) {
+            $id = request('add');
+            $basket[$id] += 1;
+        }
+        if (request('sub') != null) {
+            $id = request('sub');
+            if ($basket[$id] > 0) {
+                $basket[$id] -= 1;
+            }
+            if ($basket[$id] == 0) {
+                unset($basket[$id]);
+            }
+        }
+        if (request('del') != null) {
+            $id = request('del');
+            unset($basket[$id]);
+        }
+
+        session(["basket" => $basket]);
+
+        return redirect('basket');
+    }
 }
