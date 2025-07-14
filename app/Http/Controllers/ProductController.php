@@ -54,6 +54,9 @@ class ProductController extends Controller
             $id = request('del');
             unset($basket[$id]);
         }
+        if (request('clr') != null) {
+            $basket = [];
+        }
 
         session(["basket" => $basket]);
 
