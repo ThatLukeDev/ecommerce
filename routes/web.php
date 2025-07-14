@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('products', [ProductController::class, 'viewProducts'])->name('products.page');
+Route::get('products/{id}', [ProductController::class, 'viewProduct'])->name('products.page');
