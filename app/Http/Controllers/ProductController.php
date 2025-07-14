@@ -19,4 +19,18 @@ class ProductController extends Controller
     public function viewProduct($id) {
         return view('product', ['product' => Product::find($id)]);
     }
+    public function viewBasket() {
+        return view('basket', ['basket' => session("basket")]);
+    }
+
+    public function addProduct($id) {
+        $basket = session("basket", []);
+        if (!isset($basket[$id])) {
+            $basket[$id] = 0;
+        }
+        $basket[$id] += 1;
+        session(["basket" => $basket]);
+
+        return redirect('basket');
+    }
 }
