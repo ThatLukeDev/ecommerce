@@ -6,6 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Basket;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -49,5 +53,38 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function items(): HasMany {
+        return $this->hasMany(Basket::class);
+    }
+
+    public function basket(): Attribute {
+        return Attribute::make(
+            get: function () {
+                $basket = [];
+
+                $items = $this->items;
+                foreach ($items as $item) {
+                    if (!isset($basket[$item->id])) {
+                        $basket[$item->id] = 0;
+                    }
+                    $basket[$item->id] += $item->amount;
+                }
+
+                return $basket;
+            },
+            set: function ($basket) {
+                $this->items()->delete();
+
+                foreach ($basket as $item => $amount) {
+                    Basket::create([
+                        "item_id" => $item,
+                        "user_id" => Auth::id(),
+                        "amount" => $amount
+                    ]);
+                }
+            }
+        );
     }
 }
