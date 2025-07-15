@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use App\Services\BasketManagementService;
 
 class ProductController extends Controller
 {
@@ -21,22 +22,22 @@ class ProductController extends Controller
         return view('product', ['product' => Product::find($id)]);
     }
     public function viewBasket() {
-        return view('basket', ['basket' => session("basket", [])]);
+        return view('basket', ['basket' => BasketManagementService::getBasket()]);
     }
 
     public function addProduct($id) {
-        $basket = session("basket", []);
+        $basket = BasketManagementService::getBasket();
         if (!isset($basket[$id])) {
             $basket[$id] = 0;
         }
         $basket[$id] += 1;
-        session(["basket" => $basket]);
+        BasketManagementService::setBasket($basket);
 
         return redirect('basket');
     }
 
     public function handleProduct() {
-        $basket = session("basket", []);
+        $basket = BasketManagementService::getBasket();
 
         if (request('add') != null) {
             $id = request('add');
@@ -59,15 +60,15 @@ class ProductController extends Controller
             $basket = [];
         }
 
-        session(["basket" => $basket]);
+        BasketManagementService::setBasket($basket);
 
         return redirect('basket');
     }
 
     public function checkout() {
-        $basket = session("basket", []);
+        $basket = BasketManagementService::getBasket();
 
-        session(["basket" => []]);
+        BasketManagementService::setBasket([]);
 
         return view("checkout", ["basket" => $basket]);
     }
