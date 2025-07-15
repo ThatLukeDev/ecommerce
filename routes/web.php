@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('home');
