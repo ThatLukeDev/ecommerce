@@ -31,4 +31,10 @@ class AdminController extends Controller
 
         return redirect('/admin');
     }
+
+    public function newitem() {
+        $newproduct = Product::create(['name' => 'Name', 'price' => 0, 'image' => '/avatar.jpg', 'description' => 'Description...']);
+
+        return redirect('/admin/products/'.$newproduct->id);
+    }
 }

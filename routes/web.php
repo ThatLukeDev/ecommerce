@@ -34,4 +34,5 @@ Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAd
 Route::get('admin/products/{id}', [AdminController::class, 'viewProduct'])->middleware(EnsureAdmin::class)->name('admin.product');
 
 Route::post('admin', [AdminController::class, 'deleteitem'])->middleware(EnsureAdmin::class)->name('admin.del');
+Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(EnsureAdmin::class)->name('admin.new');
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
