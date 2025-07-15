@@ -20,7 +20,7 @@ class ProductController extends Controller
         return view('product', ['product' => Product::find($id)]);
     }
     public function viewBasket() {
-        return view('basket', ['basket' => session("basket")]);
+        return view('basket', ['basket' => session("basket", [])]);
     }
 
     public function addProduct($id) {
