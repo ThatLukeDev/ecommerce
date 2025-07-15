@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AccountController extends Controller
 {
@@ -24,5 +26,20 @@ class AccountController extends Controller
             return redirect("account");
         }
         return view("login", ["error" => true]);
+    }
+
+    public function signup() {
+        if (request("password") != request("password2")) {
+            return view("signup", ["error" => "Passwords do not match"]);
+        }
+
+        User::create([
+            "name" => request("email"),
+            "email" => request("email"),
+            "password" => Hash::make(request("password")),
+            "permission" => 0,
+        ]);
+
+        return redirect("login");
     }
 }
