@@ -48,4 +48,13 @@ class AccountController extends Controller
 
         return redirect("login");
     }
+
+    public function changeAccount() {
+        Auth::user()->update([
+            "name" => request("name"),
+            "image" => request("image"),
+        ]);
+
+        return redirect("account");
+    }
 }

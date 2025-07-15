@@ -26,6 +26,8 @@ Route::post('signup', [AccountController::class, 'signup'])->name('account.new')
 
 Route::get('account', [AccountController::class, 'viewAccount'])->middleware('auth')->name('account.page');
 
+Route::post('account', [AccountController::class, 'changeAccount'])->middleware('auth')->name('account.request');
+
 Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAdmin::class)->name('admin.page');
 Route::get('admin/products/{id}', [AdminController::class, 'viewProduct'])->middleware(EnsureAdmin::class)->name('admin.product');
 
