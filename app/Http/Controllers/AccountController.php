@@ -28,6 +28,12 @@ class AccountController extends Controller
         return view("login", ["error" => true]);
     }
 
+    public function logout() {
+        Auth::logout();
+
+        return view("login");
+    }
+
     public function signup() {
         if (request("password") != request("password2")) {
             return view("signup", ["error" => "Passwords do not match"]);

@@ -7,6 +7,6 @@
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
 
-        <h1 class="m-20 text-4xl">Temporary account page</h1>
+        <a href="/logout"><div class="inline-flex justify-center w-full"><p class="text-gray-400 w-100 text-center">Sign out</p></div></a>
     </body>
 </html>

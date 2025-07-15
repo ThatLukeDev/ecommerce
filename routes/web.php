@@ -16,12 +16,13 @@ Route::get('basket', [ProductController::class, 'viewBasket'])->name('basket.pag
 Route::post('products/{id}', [ProductController::class, 'addProduct'])->name('product.request');
 Route::post('basket', [ProductController::class, 'handleProduct'])->name('basket.request');
 
-Route::get('login', [AccountController::class, 'loginPage'])->name('account.login');
-Route::get('signup', [AccountController::class, 'signupPage'])->name('account.login');
+Route::get('login', [AccountController::class, 'loginPage'])->name('login');
+Route::get('signup', [AccountController::class, 'signupPage'])->name('signup');
 
 Route::post('login', [AccountController::class, 'login'])->name('account.auth');
+Route::get('logout', [AccountController::class, 'logout'])->name('account.lose');
 Route::post('signup', [AccountController::class, 'signup'])->name('account.new');
 
-Route::get('account', [AccountController::class, 'viewAccount'])->name('account.page');
+Route::get('account', [AccountController::class, 'viewAccount'])->middleware('auth')->name('account.page');
 
 Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAdmin::class)->name('admin.page');
