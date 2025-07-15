@@ -23,11 +23,6 @@ class AccountController extends Controller
 
     public function login() {
         if (Auth::attempt(["email" => request('email'), "password" => request('password')])) {
-            if (session("basket") != null) {
-                Auth::user()->basket = session("basket");
-            }
-            session(["basket" => Auth::user()->basket]);
-
             return redirect("account");
         }
         return view("login", ["error" => true]);

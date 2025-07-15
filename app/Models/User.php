@@ -54,37 +54,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    public function items(): HasMany {
-        return $this->hasMany(Basket::class);
-    }
-
-    public function basket(): Attribute {
-        return Attribute::make(
-            get: function () {
-                $basket = [];
-
-                $items = $this->items;
-                foreach ($items as $item) {
-                    if (!isset($basket[$item->id])) {
-                        $basket[$item->id] = 0;
-                    }
-                    $basket[$item->id] += $item->amount;
-                }
-
-                return $basket;
-            },
-            set: function ($basket) {
-                $this->items()->delete();
-
-                foreach ($basket as $item => $amount) {
-                    Basket::create([
-                        "item_id" => $item,
-                        "user_id" => Auth::id(),
-                        "amount" => $amount
-                    ]);
-                }
-            }
-        );
-    }
 }

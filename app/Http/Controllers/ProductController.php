@@ -31,9 +31,6 @@ class ProductController extends Controller
         }
         $basket[$id] += 1;
         session(["basket" => $basket]);
-        if (Auth::check()) {
-            Auth::user()->basket = session("basket");
-        }
 
         return redirect('basket');
     }
@@ -63,9 +60,6 @@ class ProductController extends Controller
         }
 
         session(["basket" => $basket]);
-        if (Auth::check()) {
-            Auth::user()->basket = session("basket");
-        }
 
         return redirect('basket');
     }
@@ -74,9 +68,6 @@ class ProductController extends Controller
         $basket = session("basket", []);
 
         session(["basket" => []]);
-        if (Auth::check()) {
-            Auth::user()->basket = session("basket");
-        }
 
         return view("checkout", ["basket" => $basket]);
     }
