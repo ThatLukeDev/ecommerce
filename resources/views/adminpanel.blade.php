@@ -1,3 +1,8 @@
+<?php
+
+use App\Models\Product;
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +13,8 @@
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
 
-        Admin panel
+        @foreach ($items as $item)
+            <x-adminitem :product=$item></x-adminitem>
+        @endforeach
     </body>
 </html>

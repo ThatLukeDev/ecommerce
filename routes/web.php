@@ -27,3 +27,7 @@ Route::post('signup', [AccountController::class, 'signup'])->name('account.new')
 Route::get('account', [AccountController::class, 'viewAccount'])->middleware('auth')->name('account.page');
 
 Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAdmin::class)->name('admin.page');
+Route::get('admin/products/{id}', [AdminController::class, 'viewProduct'])->middleware(EnsureAdmin::class)->name('admin.product');
+
+Route::post('admin', [AdminController::class, 'deleteitem'])->middleware(EnsureAdmin::class)->name('admin.del');
+Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
