@@ -16,7 +16,7 @@
             </a>
         @endif
 
-        <form action="/{{ request()->path() }}" method="post" class="m-10 mt-20">
+        <form action="/{{ request()->path() }}" method="post" class="m-10 mt-10 md:mt-20">
             @csrf
             <input class="hidden text-3xl w-full" id="srcLink" value="{{ Auth::user()->image }}" name="image">
             <div class="hidden inline-flex justify-center w-full"><input class="hidden my-5" id="fileSelector" type="file"></div>

@@ -62,4 +62,12 @@ class ProductController extends Controller
 
         return redirect('basket');
     }
+
+    public function checkout() {
+        $basket = session("basket", []);
+
+        session(["basket" => []]);
+
+        return view("checkout", ["basket" => $basket]);
+    }
 }

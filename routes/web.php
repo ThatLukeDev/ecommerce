@@ -17,6 +17,8 @@ Route::get('basket', [ProductController::class, 'viewBasket'])->name('basket.pag
 Route::post('products/{id}', [ProductController::class, 'addProduct'])->name('product.request');
 Route::post('basket', [ProductController::class, 'handleProduct'])->name('basket.request');
 
+Route::get('checkout', [ProductController::class, 'checkout'])->name('checkout.page');
+
 Route::get('login', [AccountController::class, 'loginPage'])->name('login');
 Route::get('signup', [AccountController::class, 'signupPage'])->name('signup');
 
