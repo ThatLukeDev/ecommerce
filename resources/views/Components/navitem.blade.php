@@ -1,1 +1,1 @@
-<a {{ $attributes }} class="max-md:peer-has-[:hover]:hidden text-xl flex-none mr-10 p-2 rounded-xl {{ request()->is($href) ? 'bg-gray-700' : '' }}">{{ $slot }}</a>
+<a {{ $attributes }} class="max-md:peer-has-[:hover]:hidden text-xl flex-none mr-5 md:mr-10 p-2 rounded-xl {{ str_replace('/', '', request()->path()) == str_replace('/', '', $href) ? 'bg-gray-700' : '' }}">{{ $slot }}</a>

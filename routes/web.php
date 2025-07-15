@@ -22,4 +22,6 @@ Route::get('signup', [AccountController::class, 'signupPage'])->name('account.lo
 Route::post('login', [AccountController::class, 'login'])->name('account.auth');
 Route::post('signup', [AccountController::class, 'signup'])->name('account.new');
 
-Route::get('account', [AccountController::class, 'viewAccount'])->middleware(EnsureAdmin::class)->name('account.page');
+Route::get('account', [AccountController::class, 'viewAccount'])->name('account.page');
+
+Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAdmin::class)->name('admin.page');
