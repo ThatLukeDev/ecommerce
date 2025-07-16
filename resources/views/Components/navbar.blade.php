@@ -23,6 +23,8 @@
     let account = document.querySelector("#accountico");
     let drop = document.querySelector("#accdropdown");
 
+    let dropdowndebounce = false;
+
     search.onclick = () => {
         setTimeout(() => {
             if (!search.classList.contains("pressed")) {
@@ -33,21 +35,23 @@
     };
 
     account.onclick = () => {
-        setTimeout(() => {
-            if (drop.classList.contains("hidden")) {
-                drop.classList.remove("hidden");
-            }
-            else {
-                drop.classList.add("hidden");
-            }
-        }, 0);
+        if (drop.classList.contains("hidden")) {
+            drop.classList.remove("hidden");
+            dropdowndebounce = true;
+            setTimeout(() => {
+                dropdowndebounce = false;
+            }, 0);
+        }
+        else {
+            drop.classList.add("hidden");
+        }
     };
 
     document.onclick = () => {
         if (search.classList.contains("pressed")) {
             search.classList.remove("pressed");
         }
-        if (!drop.classList.contains("hidden")) {
+        if (!dropdowndebounce && !drop.classList.contains("hidden")) {
             drop.classList.add("hidden");
         }
     };

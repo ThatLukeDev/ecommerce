@@ -1,4 +1,4 @@
-<div {{ $attributes }} class="hidden bg-gray-300 w-50 fixed right-5 top-20 rounded-xl text-gray-800 text-center">
+<div {{ $attributes }} class="hidden flex flex-col overflow-hidden bg-gray-200 w-50 fixed right-5 top-21 rounded-b-xl text-gray-800 text-center">
     @if (Auth::check())
         <x-accountdropdownitem href="/account">View account</x-accountdropdownitem>
         @if (Auth::user()->permission >= 1)
