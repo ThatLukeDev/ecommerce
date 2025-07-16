@@ -4,7 +4,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="size-5 m-1 md:mr-2" viewBox="0 -960 960 960" fill="#e3e3e3"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
         <form action="/products" method="get" class="flex-auto">
             <input type="hidden" name="page" value="1" class="hidden">
-            <input type="text" name="query" value="{{ request('query') }}" class="w-full hidden group-has-[:hover]:inline md:inline outline-none">
+            <input type="text" name="query" value="{{ request('query') }}" class="w-full hidden group-[.pressed]:inline md:inline outline-none">
         </form>
     </span>
     <x-navitem href="/">Home</x-navitem>
@@ -33,20 +33,22 @@
     };
 
     account.onclick = () => {
-        if (drop.classList.contains("hidden")) {
-            drop.classList.remove("hidden");
-        }
-        else {
-            drop.classList.add("hidden");
-        }
+        setTimeout(() => {
+            if (drop.classList.contains("hidden")) {
+                drop.classList.remove("hidden");
+            }
+            else {
+                drop.classList.add("hidden");
+            }
+        }, 0);
     };
 
     document.onclick = () => {
         if (search.classList.contains("pressed")) {
             search.classList.remove("pressed");
         }
-        if (drop.classList.contains("hidden")) {
-            drop.classList.remove("hidden");
+        if (!drop.classList.contains("hidden")) {
+            drop.classList.add("hidden");
         }
     };
 </script>
