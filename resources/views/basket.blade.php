@@ -23,7 +23,7 @@ $total = 0;
         @endforeach
 
         @if (count($basket) == 0)
-            <a class="m-5">Buy something...</a>
+            <a class="m-5">Your basket is empty...</a>
         @else
             <form action="{{ request()->path() }}" method="post" class="m-5">
                 @csrf
