@@ -6,7 +6,7 @@
                 {{ $slot }}
             </span>
             <span class="block mr-2 inline-flex items-baseline">
-                <x-basketitembutton request="del" :product=$product>x</x-basketitembutton>
+                <x-basketitembutton request="del" :product=$product><x-monoicon-delete class="size-5" /></x-basketitembutton>
             </span>
         </span>
     </div>

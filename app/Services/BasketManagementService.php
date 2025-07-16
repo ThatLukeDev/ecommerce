@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Product;
 
 class BasketManagementService
 {
@@ -12,12 +13,21 @@ class BasketManagementService
     }
 
     public static function getBasket() {
+        $basket = session("basket", []);
         if (Auth::check()) {
-            return Cache::get(Auth::id().".session", []);
+            $basket = Cache::get(Auth::id().".session", []);
         }
-        else {
-            return session("basket", []);
+        $deletedItem = false;
+        foreach ($basket as $item => $amount) {
+            if (!Product::find($item)) {
+                unset($basket[$item]);
+                $deletedItem = true;
+            }
         }
+        if ($deletedItem) {
+            BasketManagementService::setBasket($basket);
+        }
+        return $basket;
     }
 
     public static function setBasket($basket) {
