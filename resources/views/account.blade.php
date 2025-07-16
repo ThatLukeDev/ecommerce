@@ -22,7 +22,7 @@
             @csrf
             <input class="hidden text-3xl w-full" id="srcLink" value="{{ Auth::user()->image }}" name="image">
             <div class="hidden inline-flex justify-center w-full"><input class="hidden my-5" id="fileSelector" type="file"></div>
-            <div class="inline-flex justify-center w-full"><img id="img" class="w-auto aspect-square size-25 rounded-full max-md:my-10" src="{{ isset(Auth::user()->image) ? Auth::user()->image : '/avatar.jpg' }}"></div>
+            <div class="inline-flex justify-center w-full"><a href=""><img id="img" class="w-auto aspect-square size-25 rounded-full max-md:my-10" src="{{ isset(Auth::user()->image) ? Auth::user()->image : '/avatar.jpg' }}"></a></div>
             <input class="text-5xl w-full text-center" value="{{ Auth::user()->name }}" name="name">
             <div class="inline-flex justify-center w-full"><input type="submit" value="Save" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
         </form>
