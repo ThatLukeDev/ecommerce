@@ -34,14 +34,11 @@ class AccountController extends Controller
         return redirect("login");
     }
 
-    public function signup() {
-        if (User::where('name', request("name"))) {
-            return view("signup", ["error" => "User already exists"]);
-        }
-
-        if (request("password") != request("password2")) {
-            return view("signup", ["error" => "Passwords do not match"]);
-        }
+    public function signup(Request $request) {
+        $request->validate([
+            "email" => "required|email|unique:users",
+            "password" => "required|confirmed"
+        ]);
 
         User::create([
             "name" => request("email"),
