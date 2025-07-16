@@ -1,12 +1,12 @@
-<div {{ $attributes }} class="hidden outline-2 outline-black/20 bg-gray-200 w-3/4 md:w-100 fixed right-1/8 md:right-5 top-20 rounded-xl text-gray-800 text-center">
+<div {{ $attributes }} class="hidden bg-gray-300 w-50 fixed right-5 top-20 rounded-xl text-gray-800 text-center">
     @if (Auth::check())
-        <a href="/account"><div class="p-5 hover:bg-gray-300 rounded-xl">View account</div></a>
+        <x-accountdropdownitem href="/account">View account</x-accountdropdownitem>
         @if (Auth::user()->permission >= 1)
-            <a href="/admin"><div class="p-5 hover:bg-gray-300 rounded-xl">Admin panel</div></a>
+            <x-accountdropdownitem href="/admin">Admin panel</x-accountdropdownitem>
         @endif
-        <a href="/logout"><div class="p-5 hover:bg-gray-300 rounded-xl">Sign out</div></a>
+        <x-accountdropdownitem href="/logout">Sign out</x-accountdropdownitem>
     @else
-        <a href="/login"><div class="p-5 hover:bg-gray-300 rounded-xl">Log in</div></a>
-        <a href="/signup"><div class="p-5 hover:bg-gray-300 rounded-xl">Sign up</div></a>
+        <x-accountdropdownitem href="/login">Log in</x-accountdropdownitem>
+        <x-accountdropdownitem href="/signup">Sign up</x-accountdropdownitem>
     @endif
 </div>
