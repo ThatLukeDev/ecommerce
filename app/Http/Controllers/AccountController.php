@@ -13,6 +13,10 @@ class AccountController extends Controller
         return view("account");
     }
 
+    public function editAccount() {
+        return view("editaccount");
+    }
+
     public function loginPage() {
         return view("login");
     }
