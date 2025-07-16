@@ -24,4 +24,8 @@ class Product extends Model
             get: fn () => Number::currency($this->price, in: 'gbp'),
         );
     }
+
+    public function orders(): BelongsToMany {
+        return $this->belongsToMany(Order::class, 'order_products')->using(OrderProduct::class)->withTimestamps();
+    }
 }
