@@ -45,5 +45,8 @@
         if (search.classList.contains("pressed")) {
             search.classList.remove("pressed");
         }
+        if (drop.classList.contains("hidden")) {
+            drop.classList.remove("hidden");
+        }
     };
 </script>
