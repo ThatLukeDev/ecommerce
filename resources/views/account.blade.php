@@ -14,6 +14,8 @@
                 <div class="text-gray-800 text-xl mx-10 mt-10">You are an admin!</div>
                 <div class="text-gray-400 text-md mx-10">View the admin panel</div>
             </a>
+        @else
+            <div class="m-20 md:m-40"></div>
         @endif
 
         <form action="/{{ request()->path() }}" method="post" class="m-10 mt-10 md:mt-20">

@@ -35,6 +35,10 @@ class AccountController extends Controller
     }
 
     public function signup() {
+        if (User::where('name', request("name"))) {
+            return view("signup", ["error" => "User already exists"]);
+        }
+
         if (request("password") != request("password2")) {
             return view("signup", ["error" => "Passwords do not match"]);
         }
