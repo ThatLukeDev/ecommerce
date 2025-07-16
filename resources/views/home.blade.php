@@ -7,6 +7,9 @@
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
 
-        <h1 class="m-20 text-4xl">Welcome to ecommerce!</h1>
+        <a href="/products">
+            <h1 class="mx-20 mt-20 text-4xl">Welcome to ecommerce, {{ Auth::user()->name }}!</h1>
+            <h2 class="mx-20 text-xl text-gray-600">Click here or on browse to get started.</h2>
+        </a>
     </body>
 </html>
