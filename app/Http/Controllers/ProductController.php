@@ -42,7 +42,9 @@ class ProductController extends Controller
 
         if (request('add') != null) {
             $id = request('add');
-            $basket[$id] += 1;
+            if ($basket[$id] < Product::find($id)->stock) {
+                $basket[$id] += 1;
+            }
         }
         if (request('sub') != null) {
             $id = request('sub');
