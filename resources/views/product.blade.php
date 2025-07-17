@@ -11,7 +11,7 @@
             <span class="text-5xl">{{ $product->name }}</span>
             <span class="text-3xl m-5">{{ $product->formattedPrice }}</span>
             <img class="md:float-right md:ml-10 w-[100%] md:w-auto md:h-100 rounded-xl max-md:my-10" src="{{ $product->image }}"><br>
-            <p class="text-xl">{{ $product->description }}</p>
+            <p class="text-xl whitespace-pre-wrap">{{ $product->description }}</p>
 
             <form action="/{{ request()->path() }}" method="post" class="max-md:flex justify-center w-full mt-10">
                 @csrf
