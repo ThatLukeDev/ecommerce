@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\Home;
 
 ?>
 
@@ -12,6 +13,14 @@ use App\Models\Product;
     </head>
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
+
+        <form class="m-10" action="{{ request()->path() }}/save" method="post">
+            @csrf
+            <textarea class="w-full h-100 border-1 border-gray-400" name="description">{{ $home->description }}</textarea>
+            <div class="inline-flex justify-center w-full"><input type="submit" value="Save" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
+        </form>
+
+        <br><br>
 
         @foreach ($items as $item)
             <x-adminitem :product=$item></x-adminitem>

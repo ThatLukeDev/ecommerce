@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Models\Home;
 
 Route::get('/', function () {
-    return view('home');
-});
+    return view('home', ["home" => Home::firstOrCreate([], ["description" => "Description"])]);
+})->name('home.page');
 
 Route::get('products', [ProductController::class, 'viewProducts'])->name('products.page');
 Route::get('products/{id}', [ProductController::class, 'viewProduct'])->name('product.page');
@@ -40,5 +42,6 @@ Route::get('admin', [AdminController::class, 'adminpanel'])->middleware(EnsureAd
 Route::get('admin/products/{id}', [AdminController::class, 'viewProduct'])->middleware(EnsureAdmin::class)->name('admin.product');
 
 Route::post('admin', [AdminController::class, 'deleteitem'])->middleware(EnsureAdmin::class)->name('admin.del');
+Route::post('admin/save', [AdminController::class, 'changeDescription'])->middleware(EnsureAdmin::class)->name('admin.del');
 Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(EnsureAdmin::class)->name('admin.new');
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
