@@ -67,6 +67,11 @@ class ProductController extends Controller
     }
 
     public function checkout() {
+        if (!Auth::check()) {
+            session(["redirect" => "basket"]);
+            return redirect("login");
+        }
+
         $basket = BasketManagementService::getBasket();
 
         if ($basket != []) {

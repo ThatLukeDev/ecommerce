@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Services\BasketManagementService;
 
 class AccountController extends Controller
 {
@@ -39,6 +40,14 @@ class AccountController extends Controller
 
     public function login() {
         if (Auth::attempt(["email" => request('email'), "password" => request('password')])) {
+            if (session("basket") != null) {
+                BasketManagementService::setBasket(session("basket"));
+            }
+            if (session("redirect") != null) {
+                $redirect = session("redirect");
+                session(["redirect" => null]);
+                return redirect($redirect);
+            }
             return redirect("account");
         }
         return view("login", ["error" => true]);
