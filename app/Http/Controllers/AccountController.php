@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderProduct;
 
 class AccountController extends Controller
 {
@@ -15,6 +17,16 @@ class AccountController extends Controller
 
     public function editAccount() {
         return view("editaccount");
+    }
+
+    public function viewHistory() {
+        return view("history", ["history" => Order::where("user_id", Auth::id())->orderBy('created_at', 'desc')->paginate(10)]);
+    }
+
+    public function viewOrder($uuid) {
+        $order = Order::where("uuid", $uuid)->first();
+        $ordered = OrderProduct::where("order_id", $order->id)->get();
+        return view("historyorder", ["order" => $order, "ordered" => $ordered]);
     }
 
     public function loginPage() {

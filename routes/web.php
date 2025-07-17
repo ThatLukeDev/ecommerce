@@ -26,6 +26,10 @@ Route::post('login', [AccountController::class, 'login'])->name('account.auth');
 Route::get('logout', [AccountController::class, 'logout'])->name('account.lose');
 Route::post('signup', [AccountController::class, 'signup'])->name('account.new');
 
+Route::get('history', [AccountController::class, 'viewHistory'])->middleware('auth')->name('history.page');
+
+Route::get('history/{uuid}', [AccountController::class, 'viewOrder'])->middleware('auth')->name('order.page');
+
 Route::get('account', [AccountController::class, 'viewAccount'])->middleware('auth')->name('account.page');
 
 Route::get('account/edit', [AccountController::class, 'editAccount'])->middleware('auth')->name('account.edit.page');
