@@ -5,7 +5,7 @@
             <p class="text-white text-center bg-gray-600 rounded-full absolute px-5 py-4 m-5 size-20 right-0">No stock</p>
         </div>
         @endif
-        <img class="w-full rounded-xl" src="{{ $product->image }}"><br>
+        <img class="w-full rounded-xl aspect-4/3" src="{{ $product->image }}"><br>
         <span class="text-3xl max-md:block">{{ $product->name }}</span>
         <span class="text-xl">{{ $product->formattedPrice }}</span>
     </div>
