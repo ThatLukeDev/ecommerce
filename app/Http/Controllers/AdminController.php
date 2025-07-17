@@ -8,7 +8,7 @@ use App\Models\Product;
 class AdminController extends Controller
 {
     public function adminpanel() {
-        return view("adminpanel", ["items" => Product::all()]);
+        return view("adminpanel", ["items" => Product::where('deleted', '0')->get()]);
     }
 
     public function viewProduct($id) {
@@ -27,7 +27,7 @@ class AdminController extends Controller
     }
 
     public function deleteitem() {
-        Product::find(request("del"))->delete();
+        Product::where('id', request("del"))->update(["deleted" => 1]);
 
         return redirect('/admin');
     }
