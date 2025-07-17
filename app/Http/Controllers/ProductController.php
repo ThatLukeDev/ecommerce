@@ -11,11 +11,11 @@ use App\Services\BasketManagementService;
 class ProductController extends Controller
 {
     public function viewProducts() {
-        $products = Product::where('deleted', '0')->paginate(10);
+        $products = Product::where('deleted', '0')->paginate(12);
         if (request('query')) {
             $searchstr = strtolower(request('query'));
             $products = Product::whereRaw('deleted = 0 and (lower(name) like ? or lower(description) like ?)', [ '%'.$searchstr.'%', '%'.$searchstr.'%' ])
-                ->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(10);
+                ->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(12);
         }
         return view('products', ['products' => $products]);
     }

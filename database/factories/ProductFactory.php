@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'name' => ucfirst(fake()->word()),
             'price' => fake()->randomFloat(2),
-            'image' => "https://picsum.photos/id/" . random_int(0, 1000) . "/400/300",
+            'image' => "https://picsum.photos/id/" . random_int(0, 500) . "/400/300",
             'description' => fake()->paragraph()
         ];
     }
