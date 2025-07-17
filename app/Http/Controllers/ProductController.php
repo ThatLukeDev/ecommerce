@@ -74,6 +74,18 @@ class ProductController extends Controller
 
         $basket = BasketManagementService::getBasket();
 
+        $overflow = false;
+        foreach ($basket as $productid => $amount) {
+            if ($amount > Product::find($productid)->stock) {
+                $overflow = true;
+                $basket[$productid] = Product::find($productid)->stock;
+            }
+        }
+        if ($overflow) {
+            BasketManagementService::setBasket($basket);
+            return view("basket", ["basket" => $basket, "error" => "An item has had to be rescinded due to low stock."]);
+        }
+
         if ($basket != []) {
             $order = Order::create([
                 "user_id" => Auth::id(),
@@ -81,6 +93,9 @@ class ProductController extends Controller
 
             foreach ($basket as $productid => $amount) {
                 $order->products()->attach(Product::find($productid), ["amount" => $amount]);
+                Product::where('id', $productid)->update([
+                    "stock" => Product::find($productid)->stock - $amount
+                ]);
             }
         }
 

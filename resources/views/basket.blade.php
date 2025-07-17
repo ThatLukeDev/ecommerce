@@ -25,7 +25,7 @@ $total = 0;
         @if (count($basket) == 0)
             <a class="m-5">Your basket is empty...</a>
         @else
-            <form action="{{ request()->path() }}" method="post" class="m-5">
+            <form action="/basket" method="post" class="m-5">
                 @csrf
                 <input type="hidden" name="clr" value="true">
                 <span class="inline-flex justify-center w-full">
@@ -38,6 +38,7 @@ $total = 0;
                     <input type="submit" class="mr-2 p-5 px-20 bg-gray-300 rounded-full hover:bg-gray-400 hover:text-white" value="Checkout">
                 </form>
             </span>
+            <p class="text-red-400 m-5">{{ isset($error) ? $error : '' }}</p>
         @endif
     </body>
 </html>

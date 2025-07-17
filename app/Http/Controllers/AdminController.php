@@ -25,11 +25,15 @@ class AdminController extends Controller
     }
 
     public function changeProduct($id) {
+        if (request('stock') < 0) {
+            return redirect('/admin/products/'.$id);
+        }
         Product::find($id)->update([
             "name" => request('name'),
             "price" => request('price'),
             "image" => request('image'),
             "description" => request('description'),
+            "stock" => request('stock'),
         ]);
 
         return redirect('/admin/products/'.$id);
