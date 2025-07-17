@@ -38,6 +38,7 @@ class AdminController extends Controller
             "image" => request('image'),
             "description" => request('description'),
             "stock" => request('stock'),
+            "featured" => request('featured') ? '1' : '0',
         ]);
 
         return redirect('/admin/products/'.$id);

@@ -19,6 +19,7 @@
                 </div>
                 <input class="my-5" id="fileSelector" type="file">
                 <input class="text-3xl w-full" value="{{ $product->stock }}" name="stock"> in stock
+                <input type="checkbox" {{ $product->featured ? 'checked' : '' }} class="text-3xl w-full" id="srcLink" value="true" name="featured">
                 <div class="inline-flex justify-center w-full"><input type="submit" value="Save" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
             </form>
         </div>

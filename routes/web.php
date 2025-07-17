@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Home;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
@@ -9,9 +8,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NotificationController;
 
-Route::get('/', function () {
-    return view('home', ["home" => Home::firstOrCreate([], ["description" => "Description"])]);
-})->name('home.page');
+Route::get('/', [ProductController::class, 'viewHome'])->name('home.page');
 
 Route::get('products', [ProductController::class, 'viewProducts'])->name('products.page');
 Route::get('products/{id}', [ProductController::class, 'viewProduct'])->name('product.page');

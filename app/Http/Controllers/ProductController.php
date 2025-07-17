@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Home;
 use Illuminate\Support\Facades\Auth;
 use App\Services\BasketManagementService;
 
 class ProductController extends Controller
 {
+    public function viewHome() {
+        return view('home', ["products" => Product::where('deleted', '0')->where('featured', '1')->orderBy('created_at', 'desc')->get(), "home" => Home::firstOrCreate([], ["description" => "Description"])]);
+    }
+
     public function viewProducts() {
         $products = Product::where('deleted', '0')->orderBy('created_at', 'desc')->paginate(12);
         if (request('query')) {
