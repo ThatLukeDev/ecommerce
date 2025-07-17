@@ -24,8 +24,16 @@
             <div class="hidden inline-flex justify-center w-full"><input class="hidden my-5" id="fileSelector" type="file"></div>
             <div class="inline-flex justify-center w-full border-1 border-black/20"><a><img id="img" class="w-auto aspect-square size-25 rounded-full max-md:my-10" src="{{ isset(Auth::user()->image) ? Auth::user()->image : '/avatar.jpg' }}"></a></div>
             <input class="text-5xl w-full text-center border-1 border-black/20" value="{{ Auth::user()->name }}" name="name">
+            <input class="text-3xl w-full text-center border-1 border-black/20" value="{{ Auth::user()->email }}" name="email">
             <div class="inline-flex justify-center w-full"><input type="submit" value="Save" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
             <div class="w-full"><a class="text-gray-400" href="/account"><p class="text-center w-full">Cancel</p></a></div>
+            <div class="inline-flex justify-center w-full"><ul class="text-center text-red-400 mb-5">
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                @endif
+            </p></div>
         </form>
 
         <a href="/logout"><div class="inline-flex justify-center w-full bottom-20 absolute"><p class="text-gray-400 w-100 text-center">Sign out</p></div></a>

@@ -66,10 +66,22 @@ class AccountController extends Controller
         return redirect("login");
     }
 
-    public function changeAccount() {
+    public function changeAccount(Request $request) {
+        if (request("email") == Auth::user()->email) {
+            $request->validate([
+                "email" => "required|email",
+            ]);
+        }
+        else {
+            $request->validate([
+                "email" => "required|email|unique:users",
+            ]);
+        }
+
         Auth::user()->update([
             "name" => request("name"),
             "image" => request("image"),
+            "email" => request("email")
         ]);
 
         return redirect("account");
