@@ -17,10 +17,17 @@
             </div>
             <p class="text-xl whitespace-pre-wrap">{{ $product->description }}</p>
 
-            <form action="/{{ request()->path() }}" method="post" class="max-md:flex justify-center w-full mt-10">
-                @csrf
-                <input {{ $product->stock <= 0 ? 'disabled' : '' }} type="submit" class="my-5 px-10 p-5 bg-gray-300 rounded-full text-center hover:bg-gray-400" value="{{ $product->stock > 0 ? 'Add to basket' : 'None in stock' }}">
-            </form>
+            @if ( $product->stock > 0)
+                <form action="/{{ request()->path() }}" method="post" class="max-md:flex justify-center w-full mt-10">
+                    @csrf
+                    <input type="submit" class="my-5 px-10 p-5 bg-gray-300 rounded-full text-center hover:bg-gray-400" value="Add to basket">
+                </form>
+            @else
+                <form action="/notify/{{ $product->id }}" method="get" class="max-md:flex justify-center w-full mt-10">
+                    @csrf
+                    <input type="submit" class="my-5 px-10 p-5 bg-gray-300 rounded-full text-center hover:bg-gray-400" value="Notify me">
+                </form>
+            @endif
         </div>
     </body>
 </html>

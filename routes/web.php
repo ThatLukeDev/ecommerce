@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\Home;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
-use App\Models\Home;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('home', ["home" => Home::firstOrCreate([], ["description" => "Description"])]);
@@ -45,3 +46,5 @@ Route::post('admin', [AdminController::class, 'deleteitem'])->middleware(EnsureA
 Route::post('admin/save', [AdminController::class, 'changeDescription'])->middleware(EnsureAdmin::class)->name('admin.del');
 Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(EnsureAdmin::class)->name('admin.new');
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
+
+Route::get('notify/{id}', [NotificationController::class, 'notify'])->middleware('auth')->name('notify.request');

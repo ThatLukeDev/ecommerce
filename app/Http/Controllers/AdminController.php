@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Home;
+use App\Services\BasketManagementService;
 
 class AdminController extends Controller
 {
     public function adminpanel() {
-        return view("adminpanel", ["home" => Home::firstOrCreate([], ["description" => "Description"]), "items" => Product::where('deleted', '0')->get()]);
+        return view("adminpanel", ["home" => Home::firstOrCreate([], ["description" => "Description"]), "items" => Product::where('deleted', '0')->orderBy('created_at', 'desc')->get()]);
     }
 
     public function viewProduct($id) {
@@ -27,6 +28,9 @@ class AdminController extends Controller
     public function changeProduct($id) {
         if (request('stock') < 0) {
             return redirect('/admin/products/'.$id);
+        }
+        else {
+            BasketManagementService::updateWaiting(Product::find($id));
         }
         Product::find($id)->update([
             "name" => request('name'),
