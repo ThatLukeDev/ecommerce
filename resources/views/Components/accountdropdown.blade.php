@@ -5,6 +5,9 @@
         @if (Auth::user()->permission >= 1)
             <x-accountdropdownitem href="/admin">Admin panel</x-accountdropdownitem>
         @endif
+        @if (Auth::user()->permission >= 2)
+            <x-accountdropdownitem href="/superpanel">Super panel</x-accountdropdownitem>
+        @endif
         <x-accountdropdownitem href="/logout">Sign out</x-accountdropdownitem>
     @else
         <x-accountdropdownitem href="/login">Log in</x-accountdropdownitem>

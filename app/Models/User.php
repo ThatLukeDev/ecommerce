@@ -15,6 +15,7 @@ class User extends Authenticatable
 {
     const PERMISSION_USER = 0;
     const PERMISSION_ADMIN = 1;
+    const PERMISSION_SUPER = 2;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;

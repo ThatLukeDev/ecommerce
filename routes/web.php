@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureAdmin;
+use App\Http\Middleware\EnsureSuperAdmin;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\NotificationController;
 
 Route::get('/', [ProductController::class, 'viewHome'])->name('home.page');
@@ -48,3 +50,7 @@ Route::get('notify/{id}', [NotificationController::class, 'notify'])->middleware
 
 Route::get('changepassword', [AccountController::class, 'viewPassword'])->middleware('auth')->name('password.page');
 Route::post('changepassword', [AccountController::class, 'editPassword'])->middleware('auth')->name('password.request');
+
+Route::get('superpanel', [SuperAdminController::class, 'adminpanel'])->middleware(EnsureSuperAdmin::class)->name('superadmin.page');
+Route::post('superpanel/delete', [SuperAdminController::class, 'deleteadmin'])->middleware(EnsureSuperAdmin::class)->name('superadmin.delete.request');
+Route::post('superpanel/add', [SuperAdminController::class, 'addadmin'])->middleware(EnsureSuperAdmin::class)->name('superadmin.add.request');
