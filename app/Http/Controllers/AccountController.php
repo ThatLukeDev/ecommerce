@@ -26,6 +26,10 @@ class AccountController extends Controller
 
     public function viewOrder($uuid) {
         $order = Order::where("uuid", $uuid)->first();
+        // Disallow different user to view
+        if ($order->user_id != Auth::id()) {
+            return redirect("login");
+        }
         // Uses a join table field for the amount of products
         $ordered = OrderProduct::where("order_id", $order->id)->get();
         return view("historyorder", ["order" => $order, "ordered" => $ordered]);
