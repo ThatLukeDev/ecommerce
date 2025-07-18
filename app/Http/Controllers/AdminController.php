@@ -60,4 +60,8 @@ class AdminController extends Controller
 
         return redirect('/admin/products/'.$newproduct->id);
     }
+
+    public function bundlepage() {
+        return view("adminbundle");
+    }
 }

@@ -16,13 +16,22 @@ class ProductController extends Controller
         return view('home', ["products" => Product::where('deleted', '0')->where('featured', '1')->orderBy('created_at', 'desc')->get(), "home" => Home::firstOrCreate([], ["description" => "Description"])]);
     }
 
+    public function search($query) {
+        $searchstr = strtolower($query);
+        // Ordering by number of times appeared and biased towards title
+        return Product::whereRaw('deleted = 0 and (lower(name) like ? or lower(description) like ?)', [ '%'.$searchstr.'%', '%'.$searchstr.'%' ])
+            ->orderByRaw("case when (stock > 0) then 1 else 2 end")->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(12);
+    }
+
+    public function queryRequest() {
+        $result = ProductController::search(request('query'));
+        return json_encode($result);
+    }
+
     public function viewProducts() {
         $products = Product::where('deleted', '0')->orderByRaw("case when (stock > 0) then 1 else 2 end")->orderBy('created_at', 'desc')->paginate(12);
         if (request('query')) {
-            $searchstr = strtolower(request('query'));
-            // Ordering by number of times appeared and biased towards title
-            $products = Product::whereRaw('deleted = 0 and (lower(name) like ? or lower(description) like ?)', [ '%'.$searchstr.'%', '%'.$searchstr.'%' ])
-                ->orderByRaw("case when (stock > 0) then 1 else 2 end")->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(12);
+            $products = ProductController::search(request('query'));
         }
         return view('products', ['products' => $products]);
     }

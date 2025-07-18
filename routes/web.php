@@ -46,6 +46,8 @@ Route::post('admin/save', [AdminController::class, 'changeDescription'])->middle
 Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(EnsureAdmin::class)->name('admin.new');
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
 
+Route::get('admin/bundle', [AdminController::class, 'bundlepage'])->middleware(EnsureAdmin::class)->name('admin.bundle.page');
+
 Route::get('notify/{id}', [NotificationController::class, 'notify'])->middleware('auth')->name('notify.request');
 
 Route::get('changepassword', [AccountController::class, 'viewPassword'])->middleware('auth')->name('password.page');
@@ -54,3 +56,5 @@ Route::post('changepassword', [AccountController::class, 'editPassword'])->middl
 Route::get('superpanel', [SuperAdminController::class, 'adminpanel'])->middleware(EnsureSuperAdmin::class)->name('superadmin.page');
 Route::post('superpanel/delete', [SuperAdminController::class, 'deleteadmin'])->middleware(EnsureSuperAdmin::class)->name('superadmin.delete.request');
 Route::post('superpanel/add', [SuperAdminController::class, 'addadmin'])->middleware(EnsureSuperAdmin::class)->name('superadmin.add.request');
+
+Route::post('query', [ProductController::class, 'queryRequest'])->name('query.request');
