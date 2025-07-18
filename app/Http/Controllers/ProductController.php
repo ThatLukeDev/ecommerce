@@ -17,12 +17,12 @@ class ProductController extends Controller
     }
 
     public function viewProducts() {
-        $products = Product::where('deleted', '0')->orderBy('created_at', 'desc')->paginate(12);
+        $products = Product::where('deleted', '0')->orderByRaw("case when (stock > 0) then 1 else 2 end")->orderBy('created_at', 'desc')->paginate(12);
         if (request('query')) {
             $searchstr = strtolower(request('query'));
             // Ordering by number of times appeared and biased towards title
             $products = Product::whereRaw('deleted = 0 and (lower(name) like ? or lower(description) like ?)', [ '%'.$searchstr.'%', '%'.$searchstr.'%' ])
-                ->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(12);
+                ->orderByRaw("case when (stock > 0) then 1 else 2 end")->orderByRaw('name like ? desc', '%'.$searchstr.'%')->orderByRaw('instr(name, ?)', $searchstr)->paginate(12);
         }
         return view('products', ['products' => $products]);
     }
