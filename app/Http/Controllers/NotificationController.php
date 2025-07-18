@@ -12,6 +12,7 @@ class NotificationController extends Controller
 {
     public function notify($id) {
         // Auth::user()->notify(new InStock(Product::find($id)));
+        // Adds to wait list
         Waiting::create([
             'product_id' => $id,
             'user_id' => Auth::id()

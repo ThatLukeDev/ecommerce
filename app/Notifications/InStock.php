@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Product;
 
+// The notification for when an item is back in stock
 class InStock extends Notification
 {
     use Queueable;

@@ -10,14 +10,17 @@ use App\Services\BasketManagementService;
 class AdminController extends Controller
 {
     public function adminpanel() {
+        // Only one row of the home table is used
         return view("adminpanel", ["home" => Home::firstOrCreate([], ["description" => "Description"]), "items" => Product::where('deleted', '0')->orderBy('created_at', 'desc')->get()]);
     }
 
     public function viewProduct($id) {
+        // Admins can see deleted products if they like
         return view("adminproduct", ["product" => Product::find($id)]);
     }
 
     public function changeDescription() {
+        // firstOrCreate is used as one row is used for home in the table
         Home::firstOrCreate([], ['description' => "Description"])->update([
             "description" => request('description'),
         ]);
@@ -30,6 +33,7 @@ class AdminController extends Controller
             return redirect('/admin/products/'.$id);
         }
         else {
+            // Sends notifications to those on waitlist
             BasketManagementService::updateWaiting(Product::find($id));
         }
         Product::find($id)->update([
@@ -51,6 +55,7 @@ class AdminController extends Controller
     }
 
     public function newitem() {
+        // Default values
         $newproduct = Product::create(['name' => 'Name', 'price' => 0, 'image' => '/avatar.jpg', 'description' => 'Description...']);
 
         return redirect('/admin/products/'.$newproduct->id);

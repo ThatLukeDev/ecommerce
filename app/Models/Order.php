@@ -23,6 +23,7 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'order_products')->using(OrderProduct::class)->withTimestamps();
     }
 
+    // uuids are used to protect the number of orders of each user
     protected static function boot() {
         parent::boot();
         static::creating(function ($order) {

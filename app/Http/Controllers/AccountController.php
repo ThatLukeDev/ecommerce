@@ -26,6 +26,7 @@ class AccountController extends Controller
 
     public function viewOrder($uuid) {
         $order = Order::where("uuid", $uuid)->first();
+        // Uses a join table field for the amount of products
         $ordered = OrderProduct::where("order_id", $order->id)->get();
         return view("historyorder", ["order" => $order, "ordered" => $ordered]);
     }
@@ -40,9 +41,11 @@ class AccountController extends Controller
 
     public function login() {
         if (Auth::attempt(["email" => request('email'), "password" => request('password')])) {
+            // Save the users basket on signup/signin
             if (session("basket") != null) {
                 BasketManagementService::setBasket(session("basket"));
             }
+            // For some redirects to the login page, a redirect session flag is set which overrides the default account page
             if (session("redirect") != null) {
                 $redirect = session("redirect");
                 session(["redirect" => null]);
@@ -50,6 +53,7 @@ class AccountController extends Controller
             }
             return redirect("account");
         }
+        // Failed to login
         return view("login", ["error" => true]);
     }
 
@@ -69,6 +73,7 @@ class AccountController extends Controller
             "name" => request("email"),
             "email" => request("email"),
             "password" => Hash::make(request("password")),
+            // Permission [0 -> user, 1 -> admin, 2 -> god]
             "permission" => 0,
         ]);
 
@@ -76,6 +81,7 @@ class AccountController extends Controller
     }
 
     public function changeAccount(Request $request) {
+        // Allows a user to keep their email as the same thing
         if (request("email") == Auth::user()->email) {
             $request->validate([
                 "email" => "required|email",

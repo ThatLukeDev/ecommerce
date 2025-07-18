@@ -9,6 +9,30 @@ use App\Models\Waiting;
 use App\Models\User;
 use App\Notifications\InStock;
 
+/// The basket is represented in the form `[$id => $amount]`
+/// where `$id` is the item id and `$amount` is the number of products
+/// the user has in their basket.
+///
+/// Input and output to the `getBasket` and `setBasket` functions respectively
+/// will be in this form, and the class abstracts which version of the basket
+/// (session if not signed in, database if signed in) is used.
+///
+/// ```
+/// BasketManagementService::getBasket();
+/// ```
+/// ->
+/// ```
+/// [27 => 4, 36 => 2, 12 => 1]
+/// ```
+///
+/// ```
+/// BasketManagementService::setBasket([27 => 4, 36 => 2, 12 => 1]);
+/// ```
+/// ->
+/// ```
+/// assert(BasketManagementService::getBasket() == [27 => 4, 36 => 2, 12 => 1]);
+/// ```
+///
 class BasketManagementService
 {
     public function __construct()
