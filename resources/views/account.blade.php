@@ -27,6 +27,8 @@
             <div class="inline-flex justify-center w-full"><input type="submit" value="Edit" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
         </form>
 
+        <div class="w-full"><a href="/changepassword"><p class="text-gray-400 w-full text-center">Change password</p></a></div>
+
         <a href="/logout"><div class="inline-flex justify-center w-full bottom-20 absolute"><p class="text-gray-400 w-100 text-center">Sign out</p></div></a>
     </body>
     <script>

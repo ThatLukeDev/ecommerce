@@ -45,3 +45,6 @@ Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(Ensure
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
 
 Route::get('notify/{id}', [NotificationController::class, 'notify'])->middleware('auth')->name('notify.request');
+
+Route::get('changepassword', [AccountController::class, 'viewPassword'])->middleware('auth')->name('password.page');
+Route::post('changepassword', [AccountController::class, 'editPassword'])->middleware('auth')->name('password.request');

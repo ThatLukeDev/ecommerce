@@ -105,4 +105,23 @@ class AccountController extends Controller
 
         return redirect("account");
     }
+
+    public function viewPassword() {
+        return view("changepassword");
+    }
+
+    public function editPassword(Request $request) {
+        $request->validate([
+            "originalpassword" => "current_password",
+            "password" => "required|confirmed"
+        ]);
+
+        Auth::user()->update([
+            "password" => Hash::make(request("password")),
+        ]);
+
+        Auth::logout();
+
+        return redirect("/login");
+    }
 }
