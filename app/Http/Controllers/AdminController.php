@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Home;
+use App\Models\Bundle;
 use App\Services\BasketManagementService;
 
 class AdminController extends Controller
@@ -106,5 +107,43 @@ class AdminController extends Controller
         session(["bundle" => $bundle]);
 
         return redirect('/admin/bundle');
+    }
+
+    public function newBundle() {
+        session(['returnbundle' => '/admin/bundle/new']);
+        return view("adminnewbundle");
+    }
+
+    public function createBundle() {
+        $bundle = Bundle::create([
+            "name" => request('name'),
+            "discount" => 0
+        ]);
+        foreach (session("bundle", []) as $itemid => $amount) {
+            $bundle->products()->attach($itemid);
+        }
+        session(["bundle" => []]);
+
+        return redirect('/admin/bundles');
+    }
+
+    public function viewBundles() {
+        return view('adminviewbundles', ["bundles" => Bundle::all()]);
+    }
+
+    public function bundleviewbundle($id) {
+        $bundle = Bundle::find($id);
+        $bundlebuild = [];
+
+        foreach ($bundle->products()->get() as $product) {
+            if (!isset($bundlebuild[$product->id])) {
+                $bundlebuild[$product->id] = 0;
+            }
+            $bundlebuild[$product->id] += 1;
+        }
+
+        session(["bundle" => $bundlebuild]);
+
+        return view('admineditbundle', ["bundle" => $bundle]);
     }
 }

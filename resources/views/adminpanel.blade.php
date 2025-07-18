@@ -22,7 +22,7 @@ use App\Models\Home;
 
         <br><br>
 
-        <form class="m-10" action="{{ request()->path() }}/bundle" method="get">
+        <form class="m-10" action="{{ request()->path() }}/bundle/new" method="get">
             @csrf
             <div class="inline-flex justify-center w-full"><input type="submit" value="Create bundle" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
         </form>

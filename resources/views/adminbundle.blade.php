@@ -26,6 +26,11 @@ use App\Models\Product;
                 <x-basketitem :product=Product::find($item)>{{ $amount }}</x-basketitem>
             @endforeach
         </div>
+
+        <form class="m-10" action="{{ session('returnbundle', '/admin') }}" method="get">
+            @csrf
+            <div class="inline-flex justify-center w-full"><input type="submit" value="Submit" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
+        </form>
     </body>
     <script>
         let searchbox = document.querySelector("#searchV");

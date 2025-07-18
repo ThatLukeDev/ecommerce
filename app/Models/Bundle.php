@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Bundle extends Model
 {
-    use HasUuids;
-
     public $fillable = [
+        "name",
         "bundle_id",
         "discount",
     ];
