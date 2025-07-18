@@ -1,4 +1,4 @@
-<div class="m-5 p-5 bg-slate-200 rounded-xl">
+<div class="m-5 p-5 bg-slate-200 rounded-xl w-100">
     <span class="">
         <div class="flex-none mr-2 text-3xl">{{ $admin->name }}</div>
         <div class="flex-none mr-2 text-xl">{{ $admin->email }}</div>

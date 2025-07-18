@@ -7,7 +7,7 @@
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+        <div class="flex flex-wrap justify-center">
             @foreach ($admins as $admin)
                 <x-adminsuperpanelitem :admin=$admin></x-adminsuperpanelitem>
             @endforeach
