@@ -47,6 +47,8 @@ Route::post('admin/new', [AdminController::class, 'newitem'])->middleware(Ensure
 Route::post('admin/products/{id}', [AdminController::class, 'changeProduct'])->middleware(EnsureAdmin::class)->name('admin.change');
 
 Route::get('admin/bundle', [AdminController::class, 'bundlepage'])->middleware(EnsureAdmin::class)->name('admin.bundle.page');
+Route::post('admin/bundle', [AdminController::class, 'bundlehandle'])->middleware(EnsureAdmin::class)->name('admin.bundle.crequest');
+Route::get('admin/bundle/add/{id}', [AdminController::class, 'bundleadd'])->middleware(EnsureAdmin::class)->name('admin.bundle.request');
 
 Route::get('notify/{id}', [NotificationController::class, 'notify'])->middleware('auth')->name('notify.request');
 

@@ -62,6 +62,49 @@ class AdminController extends Controller
     }
 
     public function bundlepage() {
+        // instantiate a default bundle
+        session(["bundle" => session("bundle", [])]);
         return view("adminbundle");
+    }
+
+    public function bundleadd($id) {
+        $bundle = session("bundle", []);
+
+        $bundle[$id] = 1;
+
+        session(["bundle" => $bundle]);
+
+        return redirect('/admin/bundle');
+    }
+
+    public function bundlehandle() {
+        $bundle = session("bundle", []);
+
+        if (request('add') != null) {
+            $id = request('add');
+            if ($bundle[$id] < Product::find($id)->stock) {
+                $bundle[$id] += 1;
+            }
+        }
+        if (request('sub') != null) {
+            $id = request('sub');
+            if ($bundle[$id] > 0) {
+                $bundle[$id] -= 1;
+            }
+            if ($bundle[$id] == 0) {
+                unset($bundle[$id]);
+            }
+        }
+        if (request('del') != null) {
+            $id = request('del');
+            unset($bundle[$id]);
+        }
+        if (request('clr') != null) {
+            $bundle = [];
+        }
+
+        session(["bundle" => $bundle]);
+
+        return redirect('/admin/bundle');
     }
 }

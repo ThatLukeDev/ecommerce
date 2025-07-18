@@ -1,3 +1,9 @@
+<?php
+
+use App\Models\Product;
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,17 +14,23 @@
     <body class="bg-gray-50">
         <x-navbar></x-navbar>
 
-        <form class="m-10" action="{{ request()->path() }}" method="post">
-            @csrf
+        <div class="m-10" action="{{ request()->path() }}" method="post">
             <div class="inline-flex justify-center w-full"><input id="searchV" type="text" placeholder="Search" class="p-2 my-2 w-100 bg-gray-200 rounded-t-xl rounded-b-lg outline-none border-b-[0.5vh] border-gray-400 focus:border-indigo-400 default:text-gray-600"></div>
-            <div class="inline-flex justify-center w-full"><input type="submit" value="Add" class="p-2 my-5 bg-indigo-400 text-white rounded-full w-100"></div>
-        </form>
 
-        <div class="flex flex-wrap justify-center">
+            <div id="searchdisplay" class="w-full min-h-50 bg-gray-100 p-1 rounded-md">
+            </div>
+        </div>
+
+        <div class="">
+            @foreach (session("bundle") as $item => $amount)
+                <x-basketitem :product=Product::find($item)>{{ $amount }}</x-basketitem>
+            @endforeach
         </div>
     </body>
     <script>
         let searchbox = document.querySelector("#searchV");
+        let searchdisplay = document.querySelector("#searchdisplay");
+
         searchbox.oninput = () => {
             fetch("/query", {
                 method: "POST",
@@ -30,7 +42,10 @@
                     query: searchbox.value
                 })
             }).then(response => response.json()).then(data => data.data).then(data => {
-                console.log(data);
+                searchdisplay.innerHTML = "";
+                data.forEach(item => {
+                    searchdisplay.innerHTML += `<a href="/admin/bundle/add/${item.id}" class="hover:bg-gray-200 block rounded-md p-0.5 pl-2 w-full">${item.name}</a>`;
+                });
             });
         }
     </script>
